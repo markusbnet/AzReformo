@@ -22,4 +22,4 @@ def storage_list():
         storage_client = StorageManagementClient(CREDENTIALS, sub)
         storage_accounts = storage_client.storage_accounts.list()
         for account in storage_accounts:
-            yield account.allow_blob_public_access
+            yield str(account.allow_blob_public_access)

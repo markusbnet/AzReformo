@@ -11,4 +11,3 @@ tenant_id = os.getenv("TENANT_ID", "NA")
 CREDENTIALS = ServicePrincipalCredentials(
     client_id=client_id, secret=client_secret, tenant=tenant_id,
 )
-
