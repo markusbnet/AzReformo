@@ -8,6 +8,4 @@ client_id = os.getenv("CLIENT_ID", "NA")
 client_secret = os.getenv("CLIENT_SECRET", "NA")
 tenant_id = os.getenv("TENANT_ID", "NA")
 
-CREDENTIALS = ClientSecretCredential(
-    tenant_id, client_id, client_secret,
-)
+CREDENTIALS = ClientSecretCredential(tenant_id, client_id, client_secret,)

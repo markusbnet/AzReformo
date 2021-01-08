@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
+
 from auth import CREDENTIALS
 
 app = FastAPI()

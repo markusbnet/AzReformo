@@ -1,6 +1,8 @@
-from auth import CREDENTIALS
-from azure.mgmt.subscription import SubscriptionClient
 from azure.mgmt.storage import StorageManagementClient
+from azure.mgmt.subscription import SubscriptionClient
+
+from auth import CREDENTIALS
+
 
 def list_subscriptions():
     client = SubscriptionClient(CREDENTIALS)
@@ -12,6 +14,7 @@ def list_subscriptions():
     ]
 
     return subs
+
 
 def storage_list():
     subs = list_subscriptions()
