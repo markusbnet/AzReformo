@@ -3,8 +3,6 @@ import os
 # Azure stuff
 from azure.common.credentials import ServicePrincipalCredentials
 
-from azure.identity import ClientSecretCredential
-
 # Get environment variables
 client_id = os.getenv("CLIENT_ID", "NA")
 client_secret = os.getenv("CLIENT_SECRET", "NA")
