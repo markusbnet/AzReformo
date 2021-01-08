@@ -1,4 +1,4 @@
-azure-common==1.1.26
+azure-identity==1.5.0
 click==7.1.2
 dataclasses==0.8
 fastapi==0.63.0
