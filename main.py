@@ -6,14 +6,7 @@ from auth import CREDENTIALS
 from storage import storage_list
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates/pages/")
-
-numbers = [
-    1,
-    2,
-    3,
-]
-
+templates = Jinja2Templates(directory="templates/pages")
 
 @app.get("/")
 def home_get(request: Request):
@@ -25,5 +18,11 @@ def home_get(request: Request):
 @app.get("/dashboard")
 def dashboard_get(request: Request):
     return templates.TemplateResponse(
-        "dashboard.html", {"request": request, "numbers": storage_list()}
+        "dashboard.html", {"request": request}
+    )  # request must be passed
+
+@app.get("/storage")
+def storage_get(request: Request):
+    return templates.TemplateResponse(
+        "storage.html", {"request": request, "storage_accounts": storage_list()}
     )  # request must be passed

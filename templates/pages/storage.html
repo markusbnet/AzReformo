@@ -1,5 +1,25 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
+<div class="container">    
+<h1>Storage Account review</h1>
+    <div class="row">
+    {% for i in storage_accounts %}
+    <div class="col-sm-4">
+        <div class="card my-2">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ i.name }}</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Blob public access - {{ i.allow_blob_public_access }}</li>
+                    <li class="list-group-item">Min TlS version - {{ i.minimum_tls_version }}</li>
+                    <li class="list-group-item">HTTPS Only - {{ i.enable_https_traffic_only }}</li>
+                    <a href="#" class="btn btn-primary">Fix!!!</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
