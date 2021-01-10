@@ -3,7 +3,7 @@ from azure.mgmt.subscription import SubscriptionClient
 
 from auth import CREDENTIALS
 
-accounts = []
+accounts = {}
 
 def list_subscriptions():
     client = SubscriptionClient(CREDENTIALS)
@@ -23,4 +23,4 @@ def storage_list():
         storage_client = StorageManagementClient(CREDENTIALS, sub)
         storage_accounts = storage_client.storage_accounts.list()
         for account in storage_accounts:
-            accounts.append(account)
+            accounts[account.name] = account
