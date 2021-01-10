@@ -31,5 +31,6 @@ def storage_get(request: Request):
 
 
 scheduler = BackgroundScheduler()
-job = scheduler.add_job(storage_list, "interval", minutes=1)
+scheduler.add_job(storage_list)
+scheduler.add_job(storage_list, "interval", minutes=1)
 scheduler.start()
