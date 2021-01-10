@@ -4,7 +4,7 @@
 <div class="container">    
 <h1>Storage Account review</h1>
     <div class="row">
-    {% for i in storage_accounts %}
+    {% for i in storage_accounts.values() %}
     <div class="col-sm-4">
         <div class="card my-2">
             <div class="card-body">
@@ -20,6 +20,11 @@
     </div>
     {% endfor %}
     </div>
+    {% if not storage_accounts %}
+    <div class="alert alert-info" role="alert">
+	Data is being collected - come back soon!
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
