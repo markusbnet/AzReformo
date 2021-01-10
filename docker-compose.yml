@@ -9,8 +9,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - "db"
-  db:
+      - "postgres"
+  postgres:
     image: postgres
     restart: always
     env_file:
