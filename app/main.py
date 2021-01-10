@@ -14,8 +14,6 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
 
 
-
-
 @app.on_event("startup")
 async def startup_event():
     models.Base.metadata.create_all(bind=engine)
