@@ -20,6 +20,11 @@
     </div>
     {% endfor %}
     </div>
+    {% if not storage_accounts %}
+    <div class="alert alert-info" role="alert">
+	Data is being collected - come back soon!
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

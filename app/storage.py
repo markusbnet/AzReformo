@@ -5,7 +5,6 @@ from auth import CREDENTIALS
 
 accounts = []
 
-
 def list_subscriptions():
     client = SubscriptionClient(CREDENTIALS)
     # ignore disabled subscriptions
@@ -18,7 +17,6 @@ def list_subscriptions():
     return subs
 
 
-# we need to think about pulling this data at the beginning of the run and storing it somewhere. then run a background job to refresh it every x minutes.
 def storage_list():
     subs = list_subscriptions()
     for sub in subs:
