@@ -5,6 +5,7 @@ from auth import CREDENTIALS
 
 accounts = {}
 
+
 def list_subscriptions():
     client = SubscriptionClient(CREDENTIALS)
     # ignore disabled subscriptions
