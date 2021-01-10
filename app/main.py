@@ -5,17 +5,26 @@ from fastapi.templating import Jinja2Templates
 from auth import CREDENTIALS
 from storage import accounts, storage_list
 
+# database
+import models
+import schemas
+from database import SessionLocal, engine, DATABASE_URL
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
 
 
+
+
 @app.on_event("startup")
 async def startup_event():
+    models.Base.metadata.create_all(bind=engine)
     storage_list
 
 
 @app.get("/")
 def home_get(request: Request):
+    print(DATABASE_URL)
     return templates.TemplateResponse(
         "index.html", {"request": request, "id": CREDENTIALS}
     )  # request must be passed
