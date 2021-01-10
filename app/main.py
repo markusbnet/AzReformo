@@ -9,6 +9,11 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
 
 
+@app.on_event("startup")
+async def startup_event():
+    storage_list
+
+
 @app.get("/")
 def home_get(request: Request):
     return templates.TemplateResponse(
