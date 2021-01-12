@@ -3,12 +3,11 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 
 from auth import CREDENTIALS
-from storage import accounts, storage_list, get_storage
+from storage import storage_list, get_storage
 
 # database
 import models
-import schemas
-from database import SessionLocal, engine, DATABASE_URL
+from database import engine
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
@@ -23,7 +22,7 @@ async def startup_event():
 @app.get("/")
 def home_get(request: Request):
     return templates.TemplateResponse(
-        "index.html", {"request": request, "id": CREDENTIALS}
+        "index.html", {"request": request, "id": CREDENTIALS, "storage": get_storage()}
     )  # request must be passed
 
 
@@ -37,7 +36,7 @@ def dashboard_get(request: Request):
 @app.get("/storage")
 def storage_get(request: Request):
     return templates.TemplateResponse(
-        "storage.html", {"request": request, "storage_accounts": accounts}
+        "storage.html", {"request": request, "storage_accounts": get_storage()}
     )  # request must be passed
 
 
