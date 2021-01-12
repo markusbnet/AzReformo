@@ -2,9 +2,15 @@ from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.subscription import SubscriptionClient
 
 from auth import CREDENTIALS
+from database import SessionLocal
+from models import StorageAcounts
 
+db = SessionLocal()
 accounts = {}
 
+def get_storage():
+    data = (db.query(StorageAcounts).all())
+    return data
 
 def list_subscriptions():
     client = SubscriptionClient(CREDENTIALS)
