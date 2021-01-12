@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 
 from auth import CREDENTIALS
-from storage import accounts, storage_list
+from storage import accounts, storage_list, get_storage
 
 # database
 import models
@@ -17,12 +17,11 @@ templates = Jinja2Templates(directory="templates/pages")
 @app.on_event("startup")
 async def startup_event():
     models.Base.metadata.create_all(bind=engine)
-    storage_list
+    storage_list()
 
 
 @app.get("/")
 def home_get(request: Request):
-    print(DATABASE_URL)
     return templates.TemplateResponse(
         "index.html", {"request": request, "id": CREDENTIALS}
     )  # request must be passed
