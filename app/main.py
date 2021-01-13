@@ -21,7 +21,6 @@ async def startup_event():
 
 @app.get("/")
 def home_get(request: Request):
-    create_storage()  # this will move when the pr is complete. should be on a schedule.
     return templates.TemplateResponse(
         "index.html", {"request": request, "id": CREDENTIALS, "storage": get_storage()}
     )  # request must be passed
@@ -42,5 +41,6 @@ def storage_get(request: Request):
 
 
 scheduler = BackgroundScheduler()
+create_storage()  # this will move when the pr is complete. should be on a schedule.
 scheduler.add_job(storage_list, "interval", minutes=1)
 scheduler.start()

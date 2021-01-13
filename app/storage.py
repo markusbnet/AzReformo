@@ -16,14 +16,15 @@ def get_storage():
 
 
 def create_storage():
+    accounts = storage_list()
     # need to add some validation to make sure if matches the pydantic schema. not sure how to do this yet.
-    db_item = StorageAccounts(
-        name="asdf", public=True, tls="asdfasdf", https="asdfadsfasdf"
-    )  # this data will be the storage account information at some point
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
-    return db_item
+    for account in accounts:
+        db_item = StorageAccounts(
+            name=account.name, public=account.allow_blob_public_access, tls=account.minimum_tls_version, https=account.enable_https_traffic_only
+        )  # this data will be the storage account information at some point
+        db.add(db_item)
+        db.commit()
+        db.refresh(db_item)
 
 
 def list_subscriptions():
