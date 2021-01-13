@@ -1,7 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-
+import datetime
 from auth import CREDENTIALS
 from storage import storage_list, get_storage, create_storage
 
@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates/pages")
 @app.on_event("startup")
 async def startup_event():
     models.Base.metadata.create_all(bind=engine)
-    storage_list()
+    create_storage() #gather storage on startup
 
 
 @app.get("/")
@@ -41,6 +41,6 @@ def storage_get(request: Request):
 
 
 scheduler = BackgroundScheduler()
-create_storage()  # this will move when the pr is complete. should be on a schedule.
-scheduler.add_job(storage_list, "interval", minutes=1)
+  # this will move when the pr is complete. should be on a schedule.
+scheduler.add_job(create_storage, "interval", minutes=5)
 scheduler.start()

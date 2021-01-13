@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql.sqltypes import Boolean
-from sqlalchemy.types import Date
 from database import Base
+import datetime
 
 
 class StorageAccounts(Base):
@@ -12,3 +12,4 @@ class StorageAccounts(Base):
     public = Column(Boolean)
     tls = Column(String(255), index=True)
     https = Column(String(255), index=True)
+    report_date = Column(DateTime, default=datetime.datetime.utcnow)
