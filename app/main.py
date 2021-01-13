@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 
 from auth import CREDENTIALS
-from storage import storage_list, get_storage
+from storage import storage_list, get_storage, create_storage
 
 # database
 import models
@@ -21,6 +21,7 @@ async def startup_event():
 
 @app.get("/")
 def home_get(request: Request):
+    create_storage()  # this will move when the pr is complete. should be on a schedule.
     return templates.TemplateResponse(
         "index.html", {"request": request, "id": CREDENTIALS, "storage": get_storage()}
     )  # request must be passed

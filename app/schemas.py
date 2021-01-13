@@ -2,15 +2,22 @@ from datetime import date
 from pydantic import BaseModel
 
 
-class Record(BaseModel):
+# Creating pydantic schemes. You can inherit attrubutes
+# This helps when thinking about what data to return to a user. You may want password to be passed when create something but not when reading.
+class StorageBase(BaseModel):
     id: int
-    date: date
-    country: str
-    cases: int
-    deaths: int
-    recoveries: int
+    name: str
+    public: str
+    tls: str
+    https: str
 
-    # The lineorm_mode = True allows the app to take ORM objects and translate them into responses automatically.
-    # This automation saves us from manually taking data out of ORM, making it into a dictionary, then loading it in with Pydantic.
+
+class StorageCreate(StorageBase):
+    pass
+
+
+class StorageRead(StorageBase):
+    pass
+
     class Config:
         orm_mode = True
