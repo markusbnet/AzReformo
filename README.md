@@ -10,7 +10,6 @@ Fixing all those bad things someone did to your Azure tenant
 TENANT_ID=""
 CLIENT_ID=""
 CLIENT_SECRET=""
-POSTGRES_PASSWORD=""
 ```
 2. Run
 ```
