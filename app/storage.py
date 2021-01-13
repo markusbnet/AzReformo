@@ -18,6 +18,7 @@ def get_storage():
 def create_storage():
     accounts = storage_list()
     # need to add some validation to make sure if matches the pydantic schema. not sure how to do this yet.
+    db.query(StorageAccounts).delete()
     for account in accounts:
         db_item = StorageAccounts(
             name=account.name, public=account.allow_blob_public_access, tls=account.minimum_tls_version, https=account.enable_https_traffic_only
