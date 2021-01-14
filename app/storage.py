@@ -21,7 +21,10 @@ def create_storage():
     db.query(StorageAccounts).delete()
     for account in accounts:
         db_item = StorageAccounts(
-            name=account.name, public=account.allow_blob_public_access, tls=account.minimum_tls_version, https=account.enable_https_traffic_only
+            name=account.name,
+            public=account.allow_blob_public_access,
+            tls=account.minimum_tls_version,
+            https=account.enable_https_traffic_only,
         )  # this data will be the storage account information at some point
         db.add(db_item)
         db.commit()
@@ -48,3 +51,8 @@ def storage_list():
         storage_accounts = storage_client.storage_accounts.list()
         for account in storage_accounts:
             yield account
+
+
+def get_storage_properties(storage_id):
+    record = db.query(StorageAccounts).filter(StorageAccounts.name == storage_id).all()
+    return record[0]

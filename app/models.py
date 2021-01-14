@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.sql.sqltypes import Boolean
-from database import Base
 import datetime
+
+from database import Base
+from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy.sql.sqltypes import Boolean
 
 
 class StorageAccounts(Base):

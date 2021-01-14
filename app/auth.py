@@ -2,6 +2,7 @@ import os
 
 # Azure stuff
 from azure.common.credentials import ServicePrincipalCredentials
+
 from config import settings
 
 CREDENTIALS = ServicePrincipalCredentials(

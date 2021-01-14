@@ -1,13 +1,16 @@
+import datetime
+
 from apscheduler.schedulers.background import BackgroundScheduler
+from azure.mgmt.storage.v2019_04_01.models import StorageAccount
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-import datetime
-from auth import CREDENTIALS
-from storage import storage_list, get_storage, create_storage
 
 # database
 import models
+from auth import CREDENTIALS
 from database import engine
+from storage import (create_storage, get_storage, get_storage_properties,
+                     storage_list)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
@@ -16,7 +19,7 @@ templates = Jinja2Templates(directory="templates/pages")
 @app.on_event("startup")
 async def startup_event():
     models.Base.metadata.create_all(bind=engine)
-    create_storage() #gather storage on startup
+    create_storage()  # gather storage on startup
 
 
 @app.get("/")
@@ -40,7 +43,15 @@ def storage_get(request: Request):
     )  # request must be passed
 
 
+@app.get("/storage/{storage_id}")
+def storage_get_id(request: Request, storage_id: str):
+    return templates.TemplateResponse(
+        "storageid.html",
+        {"request": request, "storage": get_storage_properties(storage_id)},
+    )  # request must be passed
+
+
 scheduler = BackgroundScheduler()
-  # this will move when the pr is complete. should be on a schedule.
+# this will move when the pr is complete. should be on a schedule.
 scheduler.add_job(create_storage, "interval", minutes=5)
 scheduler.start()
