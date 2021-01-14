@@ -8,3 +8,18 @@ services:
       - .env
     ports:
       - "80:80"
+    depends_on:
+      - "postgres"
+    command: "/start-reload.sh"
+
+  postgres:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
