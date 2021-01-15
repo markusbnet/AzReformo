@@ -9,8 +9,7 @@ from fastapi.templating import Jinja2Templates
 import models
 from auth import CREDENTIALS
 from database import engine
-from storage import (create_storage, get_storage, get_storage_properties,
-                     storage_list)
+from storage import create_storage, get_storage, get_storage_properties, storage_list
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")

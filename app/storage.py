@@ -6,6 +6,8 @@ from database import SessionLocal
 from models import StorageAccounts
 from schemas import StorageCreate
 
+import re
+
 db = SessionLocal()
 accounts = {}
 
@@ -25,6 +27,12 @@ def create_storage():
             public=account.allow_blob_public_access,
             tls=account.minimum_tls_version,
             https=account.enable_https_traffic_only,
+            subscription=re.search(
+                "subscriptions/(.*)/resourceGroups", account.id
+            ).group(1),
+            resource_group=re.search("resourceGroups/(.*)/providers", account.id).group(
+                1
+            ),
         )  # this data will be the storage account information at some point
         db.add(db_item)
         db.commit()
