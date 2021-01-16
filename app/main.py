@@ -2,7 +2,7 @@ import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from azure.mgmt.storage.v2019_04_01.models import StorageAccount
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 
 # database
@@ -48,6 +48,11 @@ def storage_get_id(request: Request, storage_id: str):
         "storageid.html",
         {"request": request, "storage": get_storage_properties(storage_id)},
     )  # request must be passed
+
+
+@app.post("/storage/{storage_id}")
+def storage_update(request: Request, storage_id: str, action: str = Form("action")):
+    return(storage_id, action)
 
 
 scheduler = BackgroundScheduler()
