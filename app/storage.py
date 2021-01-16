@@ -1,6 +1,7 @@
 import re
 
 from azure.mgmt.storage import StorageManagementClient
+from azure.mgmt.storage.models import StorageAccountUpdateParameters
 from azure.mgmt.subscription import SubscriptionClient
 
 from auth import CREDENTIALS
@@ -64,3 +65,27 @@ def storage_list():
 def get_storage_properties(storage_id):
     record = db.query(StorageAccounts).filter(StorageAccounts.name == storage_id).all()
     return record[0]
+
+
+def storage_remediations(storage_id, action):
+    properties = get_storage_properties(storage_id)
+    storage_client = StorageManagementClient(CREDENTIALS, properties.subscription)
+    if action == "TLS":
+        storage_client.storage_accounts.update(
+            properties.resource_group,
+            properties.name,
+            StorageAccountUpdateParameters(minimum_tls_version="TLS1_2"),
+        )
+    elif action == "HTTPS":
+        storage_client.storage_accounts.update(
+            properties.resource_group,
+            properties.name,
+            StorageAccountUpdateParameters(enable_https_traffic_only=True),
+        )
+    else:
+        storage_client.storage_accounts.update(
+            properties.resource_group,
+            properties.name,
+            StorageAccountUpdateParameters(allow_blob_public_access=False),
+        )
+    create_storage()

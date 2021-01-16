@@ -10,7 +10,7 @@ import models
 from auth import CREDENTIALS
 from database import engine
 from storage import (create_storage, get_storage, get_storage_properties,
-                     storage_list)
+                     storage_list, storage_remediations)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
@@ -53,7 +53,7 @@ def storage_get_id(request: Request, storage_id: str):
 
 @app.post("/storage/{storage_id}")
 def storage_update(request: Request, storage_id: str, action: str = Form("action")):
-    return (storage_id, action)
+    storage_remediations(storage_id, action)
 
 
 scheduler = BackgroundScheduler()
