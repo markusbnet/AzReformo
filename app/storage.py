@@ -1,3 +1,5 @@
+import re
+
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.subscription import SubscriptionClient
 
@@ -5,8 +7,6 @@ from auth import CREDENTIALS
 from database import SessionLocal
 from models import StorageAccounts
 from schemas import StorageCreate
-
-import re
 
 db = SessionLocal()
 accounts = {}
