@@ -13,4 +13,6 @@ class StorageAccounts(Base):
     public = Column(Boolean)
     tls = Column(String(255), index=True)
     https = Column(String(255), index=True)
+    subscription = Column(String(255), index=True)
+    resource_group = Column(String(255), index=True)
     report_date = Column(DateTime, default=datetime.datetime.utcnow)

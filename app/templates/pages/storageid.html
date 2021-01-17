@@ -11,6 +11,17 @@
                     <li class="list-group-item">Blob public access - {{ storage.public }}</li>
                     <li class="list-group-item">Min TlS version - {{ storage.tls }}</li>
                     <li class="list-group-item">HTTPS Only - {{ storage.https }}</li>
+                    <li class="list-group-item">Subscription - {{ storage.subscription }}</li>
+                    <li class="list-group-item">Resource Group - {{ storage.resource_group }}</li>
+		    <form action="/storage/{{ storage.name }}" method="post">
+			    <button type="submit" name="action" value="PublicBlob" class="btn btn-primary">Change Public Access to False</a>
+		    </form>
+		    <form action="/storage/{{ storage.name }}" method="post">
+			    <button type="submit" name="action" value="TLS" class="btn btn-primary">Set TLS to 1.2</a>
+		    </form>
+		    <form action="/storage/{{ storage.name }}" method="post">
+			    <button type="submit" name="action" value="HTTPS" class="btn btn-primary">Set HTTPS Only to Enabled</a>
+		    </form>
                 </ul>
             </div>
         </div>
