@@ -22,6 +22,7 @@ def get_latest_storage():
     data = db.execute(
         'SELECT DISTINCT ON (name) * FROM "StorageAccount" ORDER BY NAME DESC;'
     )
+    print('Storage data refreshed!')
     return data
 
 
