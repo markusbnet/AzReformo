@@ -13,13 +13,24 @@ services:
     command: "/start-reload.sh"
 
   postgres:
-    image: postgres
+    image: postgres:13.1
     restart: always
     env_file:
       - .env
+    volumes:
+      - postgres:/data/postgres
 
-  adminer:
-    image: adminer
-    restart: always
+  pgadmin:
+    image: dpage/pgadmin4:2020-12-16-1
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     ports:
-      - 8080:8080
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin:/root/.pgadmin
+    restart: unless-stopped
+
+volumes:
+  postgres:
+  pgadmin:
