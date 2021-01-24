@@ -24,10 +24,9 @@ docker-compose up
 2. Access adminer through localhost:8080
 
 
-
 ### App settings
 The following app settings can be added to your .env file to manipulate the AzReformo.
 ```
-POSTGRES_PASSWORD - custom password for you postgres database.
-APP_DATA_REFRESH - interval with how often you would like your Azure data to be refreshed.
+POSTGRES_PASSWORD="" #custom password for you postgres database.
+APP_DATA_REFRESH=""  #interval with how often you would like your Azure data to be refreshed.
 ```
