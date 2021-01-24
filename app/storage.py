@@ -25,11 +25,17 @@ def get_latest_storage():
     print('Storage data refreshed!')
     return data
 
+def delete_storage(data):
+    for i in data:
+        db.query(StorageAccounts).filter(name=i).delete()
+        print(f'Deleted Storage Account - {i}')
 
 def create_storage():
     accounts = storage_list()
+    db_storage = {i.name for i in get_storage()}
+    az_storage = set()
+    
     # need to add some validation to make sure if matches the pydantic schema. not sure how to do this yet.
-    # db.query(StorageAccounts).delete()
     for account in accounts:
         db_item = StorageAccounts(
             name=account.name,
@@ -43,9 +49,16 @@ def create_storage():
                 1
             ),
         )  # this data will be the storage account information at some point
+        # if account.name not in db_storage():
+        #     delete_storage():
         db.add(db_item)
         db.commit()
         db.refresh(db_item)
+        az_storage.add(account.name)
+    storage_diff = db_storage.difference(az_storage)
+    if storage_diff:
+        delete_storage(storage_diff) # what's in the db that isn't on azure. bye bye.
+
 
 
 def list_subscriptions():
