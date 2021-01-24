@@ -4,15 +4,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from azure.mgmt.storage.v2019_04_01.models import StorageAccount
 from fastapi import FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
-from config import settings
 
 # database
 import models
 from auth import CREDENTIALS
+from config import settings
 from database import engine
-from storage import (create_storage, get_storage_properties,
-                     get_latest_storage)
-                     
+from storage import create_storage, get_latest_storage, get_storage_properties
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
