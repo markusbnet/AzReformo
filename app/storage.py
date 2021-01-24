@@ -15,10 +15,15 @@ def get_storage():
     return data
 
 
+def get_latest_storage():
+    data = db.execute('SELECT DISTINCT ON (name) * FROM "StorageAccount" ORDER BY NAME DESC;')
+    return data
+
+
 def create_storage():
     accounts = storage_list()
     # need to add some validation to make sure if matches the pydantic schema. not sure how to do this yet.
-    db.query(StorageAccounts).delete()
+    # db.query(StorageAccounts).delete()
     for account in accounts:
         db_item = StorageAccounts(
             name=account.name,
