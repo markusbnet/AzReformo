@@ -10,7 +10,9 @@ class Settings(BaseSettings):
     tenant_id: str
 
     # Postgres
-    postgres_url: str = os.getenv("POSTGRES_URL", "postgres")
+    postgres_url: str = os.getenv(
+        "POSTGRES_URL", "postgres"
+    ) 
     postgres_user: str = os.getenv("POSTGRES_USER", "postgres")
     postgres_password: str
     postgres_db: str = os.getenv("POSTGRES_DB", "azreformo")
