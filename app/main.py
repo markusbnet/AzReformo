@@ -10,7 +10,8 @@ import models
 from auth import CREDENTIALS
 from config import settings
 from database import engine
-from storage import create_storage, get_latest_storage, get_storage_properties
+from storage import (create_storage, get_latest_storage,
+                     get_storage_properties, storage_remediations)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
