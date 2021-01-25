@@ -8,9 +8,10 @@ from fastapi.templating import Jinja2Templates
 # database
 import models
 from auth import CREDENTIALS
+from config import settings
 from database import engine
-from storage import (create_storage, get_storage, get_storage_properties,
-                     storage_list, storage_remediations)
+from storage import (create_storage, get_latest_storage,
+                     get_storage_properties, storage_remediations)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
@@ -25,7 +26,7 @@ async def startup_event():
 @app.get("/")
 def home_get(request: Request):
     return templates.TemplateResponse(
-        "index.html", {"request": request, "id": CREDENTIALS, "storage": get_storage()}
+        "index.html", {"request": request, "id": CREDENTIALS}
     )  # request must be passed
 
 
@@ -39,7 +40,7 @@ def dashboard_get(request: Request):
 @app.get("/storage")
 def storage_get(request: Request):
     return templates.TemplateResponse(
-        "storage.html", {"request": request, "storage_accounts": get_storage()}
+        "storage.html", {"request": request, "storage_accounts": get_latest_storage()}
     )  # request must be passed
 
 
@@ -58,5 +59,5 @@ def storage_update(request: Request, storage_id: str, action: str = Form("action
 
 scheduler = BackgroundScheduler()
 # this will move when the pr is complete. should be on a schedule.
-scheduler.add_job(create_storage, "interval", minutes=5)
+scheduler.add_job(create_storage, "interval", minutes=settings.app_data_refresh)
 scheduler.start()
