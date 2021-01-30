@@ -2,7 +2,7 @@ import datetime
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from azure.mgmt.storage.v2019_04_01.models import StorageAccount
-from fastapi import FastAPI, Form, Request, BackgroundTasks
+from fastapi import BackgroundTasks, FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
 
 # database
@@ -10,12 +10,8 @@ import models
 from auth import CREDENTIALS
 from config import settings
 from database import engine
-from storage import (
-    create_storage,
-    get_latest_storage,
-    get_storage_properties,
-    storage_remediations,
-)
+from storage import (create_storage, get_latest_storage,
+                     get_storage_properties, storage_remediations)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
