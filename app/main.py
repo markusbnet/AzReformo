@@ -10,8 +10,12 @@ import models
 from auth import CREDENTIALS
 from config import settings
 from database import engine
-from storage import (create_storage, get_latest_storage,
-                     get_storage_properties, storage_remediations)
+from storage import (
+    create_storage,
+    get_latest_storage,
+    get_storage_properties,
+    storage_remediations,
+)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates/pages")
@@ -48,16 +52,29 @@ def storage_get(request: Request):
 def storage_get_id(request: Request, storage_id: str):
     return templates.TemplateResponse(
         "storageid.html",
-        {"request": request, "storage": get_storage_properties(storage_id), "banner": False},
+        {
+            "request": request,
+            "storage": get_storage_properties(storage_id),
+            "banner": False,
+        },
     )  # request must be passed
 
 
 @app.post("/storage/{storage_id}")
-async def storage_update(request: Request, background_tasks: BackgroundTasks, storage_id: str, action: str = Form("action")):
+async def storage_update(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    storage_id: str,
+    action: str = Form("action"),
+):
     background_tasks.add_task(storage_remediations, storage_id, action)
     return templates.TemplateResponse(
         "storageid.html",
-        {"request": request, "storage": get_storage_properties(storage_id), "banner": True},
+        {
+            "request": request,
+            "storage": get_storage_properties(storage_id),
+            "banner": True,
+        },
     )  # request must be passed
 
 
