@@ -1,41 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">  
+<h1>{{ storage[0].name }}</h1>
 {% if banner %}
 <div class="alert alert-info" role="alert">
 	Storage accounts {{ storage.name }} updated
 </div>
 {% endif %}
 <div class="container">    
-<h1>{{ storage.name }}</h1>
+<h1>{{ storage[0].name }}</h1>
     <div class="row">
     <div class="col-sm-6">
         <div class="card my-2">
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Blob public access - {{ storage.public }}</li>
-                    <li class="list-group-item">Min TlS version - {{ storage.tls }}</li>
-                    <li class="list-group-item">HTTPS Only - {{ storage.https }}</li>
-                    <li class="list-group-item">Subscription - {{ storage.subscription }}</li>
-                    <li class="list-group-item">Resource Group - {{ storage.resource_group }}</li>
-		    <form action="/storage/{{ storage.name }}" method="POST">
-			    <button type="submit" id="btnFetch" name="action" value="PublicBlob" class="btn btn-primary">Change Public Access to False</a>
-		    </form>
-		    <form action="/storage/{{ storage.name }}" method="POST">
-			    <button type="submit" name="action" value="TLS" class="btn btn-primary">Set TLS to 1.2</a>
-		    </form>
-		    <form action="/storage/{{ storage.name }}" method="POST">
-			    <button type="submit" id="btnFetch" name="action" value="HTTPS" class="btn btn-primary">Set HTTPS Only to Enabled</a>
-		    </form>
+                    <li class="list-group-item">Blob public access - {{ storage[0].public }}</li>
+                    <li class="list-group-item">Min TlS version - {{ storage[0].tls }}</li>
+                    <li class="list-group-item">HTTPS Only - {{ storage[0].https }}</li>
+                    <li class="list-group-item">Subscription - {{ storage[0].subscription }}</li>
+                    <li class="list-group-item">Resource Group - {{ storage[0].resource_group }}</li>
                 </ul>
+            </div>
+            <div class="card-footer text-center">
+                <form action="/storage/{{ storage[0].name }}" method="post">
+                  <button type="submit" name="action" value="PublicBlob" class="btn btn-primary text-center m-1">Change Public Access to False</a>
+                </form>
+                <form action="/storage/{{ storage[0].name }}" method="post">
+                  <button type="submit" name="action" value="TLS" class="btn btn-primary text-center m-1">Set TLS to 1.2</a>
+                </form>
+                <form action="/storage/{{ storage[0].name }}" method="post">
+                  <button type="submit" name="action" value="HTTPS" class="btn btn-primary text-center m-1">Set HTTPS Only to Enabled</a>
+                </form>
             </div>
         </div>
     </div>
-    <div class="col-sm-2"></div>
-    <div class="col-sm-4">
-        <div class="card">
-            <div class="card-body">
-        <table class="table">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-sm">
             <thead>
               <tr>
                 <th scope="col">Date</th>
@@ -45,86 +49,20 @@
               </tr>
             </thead>
             <tbody>
+              {% for i in storage %}
               <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
+                <th scope="row">{{ i.report_date.strftime('%Y-%m-%d %H:%M:%S') }}</th>
+                <td>{{ i.tls }}</td>
+                <td>{{ i.https }}</td>
+                <td>{{ i.public }}</td>
               </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>False</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>False</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>False</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.2</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.2</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
-              <tr>
-                <th scope="row">19/12/1992 - 12:00</th>
-                <td>1.1</td>
-                <td>True</td>
-                <td>False</td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
-        </div></div>
+      </div>
     </div>
-    <div class="row">
-        
-    </div>
+  </div>
 </div>
 <! -- Think we should grey out the buttons if th TLS version is 1.2 or HTTPS Only is Enabled or Blob Public Access is disabled.--> 
 {% endblock %}

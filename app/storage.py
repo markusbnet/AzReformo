@@ -86,7 +86,7 @@ def storage_list():
 
 def get_storage_properties(storage_id):
     record = db.query(StorageAccounts).filter(StorageAccounts.name == storage_id).all()
-    return record[0]
+    return record
 
 
 def storage_remediations(storage_id, action):

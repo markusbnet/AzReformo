@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     # Postgres
     postgres_url: str = os.getenv("POSTGRES_URL", "postgres")
     postgres_user: str = os.getenv("POSTGRES_USER", "postgres")
-    postgres_password: str
+    postgres_password: str = os.getenv("POSTGRES_PASSWORD", "postgres")
     postgres_db: str = os.getenv("POSTGRES_DB", "azreformo")
 
     # app config
