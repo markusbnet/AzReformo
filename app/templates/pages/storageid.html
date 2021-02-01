@@ -3,6 +3,13 @@
 {% block content %}
 <div class="container">  
 <h1>{{ storage[0].name }}</h1>
+{% if banner %}
+<div class="alert alert-info" role="alert">
+	Storage accounts {{ storage.name }} updated
+</div>
+{% endif %}
+<div class="container">    
+<h1>{{ storage[0].name }}</h1>
     <div class="row">
     <div class="col-sm-6">
         <div class="card my-2">
@@ -16,13 +23,13 @@
                 </ul>
             </div>
             <div class="card-footer text-center">
-                <form action="/storage/{{ storage.name }}" method="post">
+                <form action="/storage/{{ storage[0].name }}" method="post">
                   <button type="submit" name="action" value="PublicBlob" class="btn btn-primary text-center m-1">Change Public Access to False</a>
                 </form>
-                <form action="/storage/{{ storage.name }}" method="post">
+                <form action="/storage/{{ storage[0].name }}" method="post">
                   <button type="submit" name="action" value="TLS" class="btn btn-primary text-center m-1">Set TLS to 1.2</a>
                 </form>
-                <form action="/storage/{{ storage.name }}" method="post">
+                <form action="/storage/{{ storage[0].name }}" method="post">
                   <button type="submit" name="action" value="HTTPS" class="btn btn-primary text-center m-1">Set HTTPS Only to Enabled</a>
                 </form>
             </div>
