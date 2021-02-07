@@ -7,8 +7,8 @@ AzReformo also has the functionality to fix miss configured services at the clic
 because we know engineers don't always have the opportunity to work with cloud services which are defined as code. We also know 
 that sometimes you simply need to make changes quickly to maintain compliance with your organisation.
 
-If you can, we highly recommend making changes to your Cloud services using tools such as Terrafom and Pulumi. 
-We love them and so should you.
+If you can, we highly recommend making changes to your Cloud services using tools such as [Terrafom](https://www.terraform.io/)
+and [Pulumi](https://www.pulumi.com/). We love them and so should you.
 
 Services currently covered:
 
